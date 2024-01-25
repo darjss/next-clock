@@ -6,7 +6,7 @@ const Stopwatch = () => {
     minutes: 0,
     hour: 0,
   });
-  let intervalId = null;
+  let intervalId;
   const startStopwatch = () => {
     intervalId = setInterval(() => {
       if (clock.seconds < 59) {
