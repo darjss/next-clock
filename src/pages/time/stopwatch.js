@@ -6,32 +6,55 @@ const Stopwatch = () => {
     minutes: 0,
     hour: 0,
   });
-  let intervalId;
+
   const startStopwatch = () => {
-    intervalId = setInterval(() => {
-      if (clock.seconds < 59) {
-        clock.seconds++;
-      } else if (clock.minutes < 59) {
-        clock.seconds = 0;
-        clock.minutes++;
-      } else {
-        clock.minutes = 0;
-        clock.hour++;
-      }
-      setClock({ ...clock });
-    }, 100);
+    const intervalId = setInterval(() => {
+      setClock((prevClock) => {
+        let newClock = { ...prevClock };
+        if (newClock.seconds < 59) {
+          newClock.seconds++;   
+        } else if (newClock.minutes < 59) {
+          newClock.seconds = 0;
+          newClock.minutes++;
+        } else {
+          newClock.minutes = 0;
+          newClock.hour++;
+        }
+        return newClock;
+      });
+    }, 1000);
     console.log(intervalId);
+
+    setClock((prevClock) => ({ ...prevClock, intervalId }));
   };
+
+  const stopHandler = () => {
+    setClock((prevClock) => {
+      clearInterval(prevClock.intervalId);
+      console.log(prevClock.intervalId);
+      return { ...prevClock, intervalId: null };
+    });
+  };
+
+  const resetHandler = () => {
+    setClock((prevClock) => {
+      clearInterval(prevClock.intervalId);
+      console.log(prevClock.intervalId);
+      return {
+        seconds: 0,
+        minutes: 0,
+        hour: 0,
+        intervalId: null,
+      };
+    });
+  };
+
   const convert = (num) => {
     let strTime;
     num < 10 ? (strTime = "0" + num) : (strTime = num + "");
     return strTime;
   };
-  // time();
 
-  const stopHandler = () => {
-    clearInterval(intervalId);
-  };
   return (
     <div className="flex gap-3">
       <p className="text-3xl">
@@ -39,32 +62,11 @@ const Stopwatch = () => {
       </p>
       <div className="flex gap-5">
         <button onClick={startStopwatch}>Start</button>
-        <button
-          onClick={() => {
-            console.log(intervalId);
-            clearInterval(intervalId);
-            console.log(intervalId);
-            intervalId = null;
-            setClock({ ...clock });
-          }}
-        >
-          Stop
-        </button>
-        <button
-          onClick={() => {
-            clearInterval(intervalId);
-            console.log(intervalId);
-            intervalId = null;
-            clock.hour = 0;
-            clock.minutes = 0;
-            clock.seconds = 0;
-            setClock({ ...clock });
-          }}
-        >
-          Reset
-        </button>
+        <button onClick={stopHandler}>Stop</button>
+        <button onClick={resetHandler}>Reset</button>
       </div>
     </div>
   );
 };
+
 export default Stopwatch;
