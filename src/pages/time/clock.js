@@ -10,7 +10,7 @@ const Clock = () => {
   };
   checkTime();
   return (
-    <div>
+    <div className="pageBackground">
       <div className="flex gap-2">
         <p>{time.toLocaleDateString()}</p>
         <p>{time.toLocaleTimeString()} </p>

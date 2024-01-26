@@ -2,3 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components{
+    .pageBackground{
+        @apply w-screen h-screen  gap-6 bg-slate-900 text-white 
+    }
+    .flexing{
+        @apply flex flex-col justify-center items-center
+    }
+    .graySmall{
+        @apply text-gray-400 text-3xl
+    }
+}
