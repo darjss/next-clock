@@ -26,10 +26,11 @@ const Stopwatch = () => {
         }
         return newClock;
       });
-    }, 1);
+    }, 10);
     console.log(intervalId);
 
     setClock((prevClock) => ({ ...prevClock, intervalId }));
+    console.log(clock);
   };
 
   const stopHandler = () => {
@@ -37,6 +38,7 @@ const Stopwatch = () => {
       clearInterval(prevClock.intervalId);
       console.log(prevClock.intervalId);
       return { ...prevClock, intervalId: null };
+          console.log(clock);
     });
   };
 
@@ -73,8 +75,13 @@ const Stopwatch = () => {
           <span className="text-5xl">{convert(clock.ms)}</span>
         </p>
         <div className="flex gap-5">
-        <button onClick={stopHandler}>Stop</button>
-          <button className="w-[100px] h-100px] bg-indigo-600 rounded-full text-2xl" onClick={startStopwatch}>Start</button>
+          <button onClick={stopHandler}>Stop</button>
+          <button
+            className="w-[100px] h-100px] bg-indigo-600 rounded-full text-2xl"
+            onClick={startStopwatch}
+          >
+            Start
+          </button>
           <button onClick={resetHandler}>Reset</button>
         </div>
       </div>
