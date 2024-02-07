@@ -1,7 +1,7 @@
 import Link from "next/link"
 const Header = () => {
     return (
-      <ul className="flex gap-7">
+      <ul className="flex gap-7 bg-slate-900 text-white">
         <Link href="/time/stopwatch">
           <li>Stopwatch</li>
         </Link>
